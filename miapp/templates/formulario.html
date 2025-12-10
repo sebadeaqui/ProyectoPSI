@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoundWave — Registro</title>
+
+    <style>
+        body{
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0b0b16, #0d0620, #0e0033);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .card{
+            width: 400px;
+            background: rgba(20, 20, 35, 0.85);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(120, 60, 255, 0.4);
+            backdrop-filter: blur(8px);
+        }
+
+        h1{
+            text-align: center;
+            margin-bottom: 20px;
+            color: #b68bff;
+        }
+
+        .formulario{
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input{
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #3b2f66;
+            background: #120e26;
+            color: #d4caff;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .input:focus{
+            border-color: #8e63ff;
+            box-shadow: 0 0 8px #8e63ff;
+        }
+
+        .btn{
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-registro{
+            background: #5e3bff;
+            color: white;
+        }
+
+        .btn-registro:hover{
+            background: #8369ff;
+        }
+
+        .mensaje{
+            background: rgba(255, 80, 80, 0.15);
+            border-left: 4px solid #ff4d4d;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .link-volver {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #3b2f66;
+        }
+        
+        .link-volver a {
+            color: #8f53ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .link-volver a:hover {
+            color: #b88dff;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <h1>Crear Cuenta</h1>
+
+        {% if infosms %}
+        <div class="mensaje">
+            {{ infosms }} <br><br> {{ infosms2 }}
+        </div>
+        {% endif %}
+
+        <form class="formulario" method="post">
+            {% csrf_token %}
+
+            <input type="text" name="username" class="input" placeholder="Nombre de usuario" required>
+            <input type="password" name="password1" class="input" placeholder="Contraseña" required>
+            <input type="password" name="password2" class="input" placeholder="Confirmar contraseña" required>
+
+            <button type="submit" class="btn btn-registro">Registrarse</button>
+        </form>
+        
+        <div class="link-volver">
+            <a href="{% url 'login' %}">← Ya tengo cuenta, volver al Login</a>
+        </div>
+    </div>
+
+</body>
+</html>

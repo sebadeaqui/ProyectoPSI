@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Landing Festival</title>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+
+    body {
+    font-family: Arial, sans-serif;
+    color: white;
+    height: 100vh;
+    }
+
+    nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    z-index: 1000;
+    }
+
+    nav .logo {
+    font-size: 20px;
+    font-weight: bold;
+    }
+
+    nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    }
+
+    nav ul li {
+    position: relative;
+    }
+
+    nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    }
+
+    nav ul li:hover ul {
+    display: block;
+    }
+
+    nav ul ul {
+    display: none;
+    position: absolute;
+    top: 25px;
+    left: 0;
+    background: black;
+    padding: 10px;
+    border-radius: 5px;
+    }
+
+    nav ul ul li {
+    margin: 5px 0;
+    }
+
+    .account {
+    border: 1px solid white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    }
+
+    header {
+    height: 100vh;
+    background: url("https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeXB6eWZ6NW43N2pibWxiaXI0NzB1b3U2aDExYTNpNnlrZWdqdjZ6ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/dDuc7n5MYkN9K/giphy.gif") no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    position: relative;
+    }
+
+    header::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.4);
+    }
+
+    header h1, header p, .hero-buttons {
+    position: relative;
+    z-index: 2;
+    }
+
+    header h1 {
+    font-size: 40px;
+    margin-bottom: 15px;
+    }
+
+    header p {
+    font-size: 18px;
+    margin-bottom: 25px;
+    }
+
+    .hero-buttons {
+    display: flex;
+    gap: 20px;
+    }
+
+    .hero-buttons a {
+    text-decoration: none;
+    border: 2px solid white;
+    padding: 10px 25px;
+    border-radius: 30px;
+    color: white;
+    transition: 0.3s;
+    }
+
+    .hero-buttons a:hover {
+    background: white;
+    color: black;
+    }
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="logo"> Festival</div>
+    <ul>
+    <li><a href="#">Festivals & Events ▾</a>
+        <ul>
+        <li><a href="#">Tomorrowland</a></li>
+        <li><a href="#">Winter Edition</a></li>
+        </ul>
+    </li>
+    <li><a href="{% url 'formulario' %}">Formulario ▾</a></li>
+    <li><a href="#">Store ▾</a></li>
+    <li><a href="#">Music ▾</a></li>
+    <li><a href="#">More ▾</a></li>
+    </ul>
+    <div class="account"> My Account</div>
+</nav>
+
+<header>
+    <h1>Tomorrowland Winter returns to Alpe d'Huez</h1>
+    <p>7-Day Festival Packages are now on sale.</p>
+    <div class="hero-buttons">
+    <a href= "{% url 'vistaSecundaria' %}">MORE INFO</a>
+    <a href="#">ENTER SHOP</a>
+    </div>
+</header>
+</body>
+</html>

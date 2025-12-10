@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>SoundWave - Gestión de Canciones</title>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background: #121212;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #fff;
+  }
+
+  .container {
+    width: 90%;
+    max-width: 700px;
+    margin: auto;
+    padding-top: 40px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 30px;
+    font-weight: 700;
+  }
+
+  .form-card {
+    background: #1E1E1E;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    margin-bottom: 30px;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: none;
+    font-size: 16px;
+    background: #2A2A2A;
+    color: #fff;
+  }
+
+  input::placeholder {
+    color: #999;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    background: #1DB954;
+    color: white;
+    transition: 0.2s;
+  }
+
+  .btn:hover {
+    background: #18a84b;
+  }
+
+  .song-card {
+    background: #1E1E1E;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  }
+
+  .song-title {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .song-artist {
+    font-size: 16px;
+    color: #bbb;
+    margin-top: 5px;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+
+  .edit-btn, .delete-btn {
+    cursor: pointer;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    color: white;
+  }
+
+  .edit-btn {
+    background: #2979FF;
+  }
+
+  .delete-btn {
+    background: #D32F2F;
+  }
+
+  .edit-btn:hover { background: #1860d8; }
+  .delete-btn:hover { background: #b22020; }
+
+  .back-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background: #4836ff;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .back-btn:hover {
+    background: #6b5bff;
+  }
+
+  .form-inline {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  .form-inline input {
+    flex: 1;
+    margin: 0;
+  }
+
+  .btn-sm {
+    padding: 8px 15px;
+    width: auto;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <a href="{% url 'principal' %}" class="back-btn">← Volver al Home</a>
+  
+  <h1>Gestión de Canciones</h1>
+
+  <!-- Formulario para agregar nueva canción -->
+  <div class="form-card">
+    <h3 style="margin-top: 0;">Agregar Nueva Canción</h3>
+    <form method="post">
+      {% csrf_token %}
+      <input type="text" name="titulo" placeholder="Título de la canción" required>
+      <input type="text" name="artista" placeholder="Artista" required>
+      <button type="submit" name="agregar" class="btn">Agregar Canción</button>
+    </form>
+  </div>
+
+  <h2 style="margin-left: 5px;">Lista de Canciones ({{ canciones.count }})</h2>
+  
+  {% if canciones %}
+    {% for cancion in canciones %}
+    <div class="song-card">
+      <div class="song-title">🎵 {{ cancion.titulo }}</div>
+      <div class="song-artist">🎤 {{ cancion.artista }}</div>
+      <div style="font-size: 12px; color: #888; margin-top: 5px;">
+        Agregada: {{ cancion.fecha_creacion|date:"d/m/Y H:i" }}
+      </div>
+      
+      <!-- Formulario para editar canción -->
+      <div class="actions">
+        <form method="post" style="display: inline;">
+          {% csrf_token %}
+          <input type="hidden" name="cancion_id" value="{{ cancion.id }}">
+          <button type="submit" name="eliminar" class="delete-btn" 
+                  onclick="return confirm('¿Eliminar {{ cancion.titulo }}?')">
+            Eliminar
+          </button>
+        </form>
+        
+        <!-- Formulario inline para editar -->
+        <form method="post" class="form-inline" style="flex: 1;">
+          {% csrf_token %}
+          <input type="hidden" name="cancion_id" value="{{ cancion.id }}">
+          <input type="text" name="titulo" value="{{ cancion.titulo }}" required>
+          <input type="text" name="artista" value="{{ cancion.artista }}" required>
+          <button type="submit" name="editar" class="edit-btn btn-sm">Guardar Cambios</button>
+        </form>
+      </div>
+    </div>
+    {% endfor %}
+  {% else %}
+    <div class="song-card" style="text-align: center;">
+      <p>No hay canciones aún. ¡Agrega tu primera canción!</p>
+    </div>
+  {% endif %}
+</div>
+
+</body>
+</html>

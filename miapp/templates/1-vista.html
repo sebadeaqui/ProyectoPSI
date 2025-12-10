@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoundWave — Home</title>
+
+    <style>
+        body{
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0a0a12, #090519, #0d0228);
+            color: white;
+        }
+
+        .layout{
+            display: flex;
+            height: 100vh;
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar{
+            width: 260px;
+            background: #11111f;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            border-right: 1px solid #221c45;
+        }
+
+        .brand{
+            font-size: 22px;
+            font-weight: bold;
+            color: #b88dff;
+        }
+
+        .menu a{
+            display: block;
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #d8d0ff;
+            background: #141427;
+            transition: 0.2s;
+        }
+
+        .menu a:hover{
+            background: #201f34;
+            color: white;
+        }
+
+        .user-box{
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid #2e2b48;
+            font-size: 14px;
+        }
+
+        .logout-btn{
+            margin-top: 10px;
+            background: #4836ff;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover{
+            background: #6b5bff;
+        }
+
+        /* --- CONTENIDO PRINCIPAL --- */
+        .content{
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        h1{
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #c8b2ff;
+        }
+
+        .search{
+            width: 100%;
+            max-width: 480px;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #3b3165;
+            background: #120f26;
+            color: #d6caff;
+            outline: none;
+            margin-bottom: 30px;
+        }
+
+        .section-title{
+            font-size: 20px;
+            margin: 20px 0 10px 0;
+            color: #c6b6ff;
+        }
+
+        /* --- TARJETAS --- */
+        .card{
+            background: #141325;
+            padding: 20px;
+            border-radius: 12px;
+            width: 280px;
+            box-shadow: 0 0 12px rgba(120, 70, 255, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .playlist-container{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+        }
+
+        .card-title{
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .card-sub{
+            font-size: 13px;
+            opacity: 0.7;
+        }
+
+        .btn{
+            padding: 8px 12px;
+            margin-top: 12px;
+            margin-right: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+            font-size: 14px;
+        }
+
+        .btn-open{ background: #29295a; color: #bfaaff; }
+        .btn-play{ background: #7b4cff; color: white; }
+
+        .btn-open:hover{ background: #37376e; }
+        .btn-play:hover{ background: #956cff; }
+
+        /* ARTISTAS */
+        .artist-card{
+            background: #141325;
+            padding: 18px;
+            border-radius: 12px;
+            width: 280px;
+            box-shadow: 0 0 12px rgba(120, 70, 255, 0.15);
+        }
+
+        /* NOTIFICACIÓN */
+        .notificacion {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #1DB954;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            display: none;
+            max-width: 300px;
+        }
+
+        .contador-canciones {
+            background: #7b4cff;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="layout">
+
+    <div class="sidebar">
+
+        <div class="brand">SoundWave</div>
+
+        <div class="menu">
+            <a href="{% url 'principal' %}">🏠 Home</a>
+            <a href="{% url 'gestion' %}">📂 Gestión <span class="contador-canciones">{{ canciones.count }}</span></a>
+            <a href="{% url 'modificar' %}">✏️ Modificar</a>
+        </div>
+
+        <div class="user-box">
+            <strong>Usuario:</strong><br>
+            {{ user.username }}<br>
+            <a class="logout-btn" href="{% url 'logout' %}">Cerrar sesión</a>
+        </div>
+
+    </div>
+
+    <div class="content">
+
+        <input type="text" class="search" placeholder="Buscar playlists, artistas, canciones...">
+
+        <h1>Home — Playlists & Artistas</h1>
+
+        <div class="section-title">Playlists</div>
+
+        <div class="playlist-container">
+            <div class="card">
+                <div class="card-title">Favoritas</div>
+                <div class="card-sub">{{ canciones.count }} canciones</div>
+                <button class="btn btn-open">Abrir</button>
+                <button class="btn btn-play">Reproducir</button>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Recientes</div>
+                <div class="card-sub">Tus últimas agregadas</div>
+                <button class="btn btn-open">Abrir</button>
+                <button class="btn btn-play">Reproducir</button>
+            </div>
+        </div>
+
+        <div class="section-title">🎵 Tus Canciones <span class="contador-canciones">{{ canciones.count }}</span></div>
+
+        {% if canciones %}
+        <div class="playlist-container">
+            {% for cancion in canciones %}
+            <div class="card">
+                <div class="card-title">{{ cancion.titulo }}</div>
+                <div class="card-sub">{{ cancion.artista }}</div>
+                <div style="font-size: 11px; color: #888; margin-top: 5px;">
+                    Agregada: {{ cancion.fecha_creacion|date:"d/m/Y" }}
+                </div>
+                <div style="margin-top: 15px;">
+                    <button class="btn btn-play" 
+                            onclick="reproducir('{{ cancion.titulo }}', '{{ cancion.artista }}')">
+                        ▶ Reproducir
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div style="text-align: center; margin-top: 30px; padding: 20px; background: rgba(123, 76, 255, 0.1); border-radius: 10px;">
+            <p style="margin: 0;">
+                Tienes {{ canciones.count }} canción{{ canciones.count|pluralize:"es" }} en tu biblioteca.
+                <a href="{% url 'gestion' %}" style="color: #b88dff; font-weight: bold; margin-left: 10px;">
+                    📝 Administrar canciones
+                </a>
+            </p>
+        </div>
+
+        {% else %}
+        <div class="card" style="width: 95%; text-align: center; padding: 30px;">
+            <div style="font-size: 48px; margin-bottom: 20px;">🎵</div>
+            <p style="font-size: 18px; margin-bottom: 10px;">Tu biblioteca está vacía</p>
+            <p style="color: #aaa; margin-bottom: 25px;">
+                Agrega canciones para comenzar a disfrutar de tu música personalizada
+            </p>
+            <a href="{% url 'gestion' %}" style="
+                display: inline-block;
+                background: #7b4cff;
+                color: white;
+                padding: 12px 25px;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: bold;
+            ">
+                ➕ Agregar primera canción
+            </a>
+        </div>
+        {% endif %}
+
+        <div class="section-title">Artistas destacados</div>
+
+        <div class="playlist-container">
+            {% if canciones %}
+                {% for cancion in canciones|slice:":4" %}
+                <div class="artist-card">
+                    <div class="card-title">{{ cancion.artista }}</div>
+                    <div class="card-sub">Artista</div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="artist-card">
+                    <div class="card-title">Artistas</div>
+                    <div class="card-sub">Agrega canciones para ver artistas</div>
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<!-- Notificación flotante -->
+<div class="notificacion" id="notificacion">
+    <strong>🎵 Reproduciendo:</strong><br>
+    <span id="notificacion-texto"></span>
+</div>
+
+<script>
+function reproducir(titulo, artista) {
+    // Mostrar notificación
+    const notificacion = document.getElementById('notificacion');
+    const texto = document.getElementById('notificacion-texto');
+    
+    texto.textContent = `${titulo} - ${artista}`;
+    notificacion.style.display = 'block';
+    
+    // Aquí podrías agregar lógica real de reproducción
+    console.log(`Reproduciendo: ${titulo} - ${artista}`);
+    
+    // Ocultar notificación después de 3 segundos
+    setTimeout(() => {
+        notificacion.style.display = 'none';
+    }, 3000);
+}
+
+// Funcionalidad de búsqueda
+const searchInput = document.querySelector('.search');
+searchInput.addEventListener('input', function(e) {
+    const searchTerm = e.target.value.toLowerCase();
+    const cards = document.querySelectorAll('.card, .artist-card');
+    
+    cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        if (text.includes(searchTerm)) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+});
+
+// Actualizar contador de canciones en tiempo real (simulado)
+function actualizarContador() {
+    const contador = document.querySelector('.contador-canciones');
+    if (contador) {
+        // Esto es solo para demostración - en un caso real harías una petición al servidor
+        console.log('Contador actualizado');
+    }
+}
+
+// Recargar la página cada 30 segundos para ver canciones nuevas (opcional)
+// setTimeout(() => {
+//     location.reload();
+// }, 30000);
+</script>
+
+</body>
+</html>

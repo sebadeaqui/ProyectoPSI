@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body{
+            background-color: aqua;
+        }
+
+        h1{
+            text-align: center;
+        }
+
+        .contenedor{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: rgb(0, 255, 55);
+        }
+
+        .formulario{
+            margin: 10px;
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+        }
+
+        .m-bottom{
+            margin-bottom: 15px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        button{
+            padding: 10px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .btn-login{
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .btn-registro{
+            background-color: #008CBA;
+            color: white;
+        }
+        
+        .mensaje{
+            background: #ffe6e6;
+            border-left: 5px solid #ff4d4d;
+            padding: 12px 18px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            width: 300px;
+        }
+        
+        .error{
+            color: #b30000;
+            font-weight: bold;
+        }
+        
+        .link-registro{
+            margin-top: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <h1>Vista de Login</h1>
+
+        {% if infosms %}
+            <div class="mensaje">
+                <p class="error">
+                    {{ infosms }}<br>
+                    {{ infosms2 }}
+                </p>
+            </div>
+        {% endif %}
+    
+        <form class="formulario" method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <label for="usuario">Nombre de usuario:</label>
+            <input type="text" class="m-bottom" id="usuario" name="username" required>
+        
+            <label for="password">Contraseña:</label>
+            <input type="password" class="m-bottom" id="password" name="password1" required>
+    
+            <button type="submit" class="btn-login">Ingresar</button>
+        </form>
+        
+        <div class="link-registro">
+            <p>¿No tienes cuenta? <a href="{% url 'formulario' %}">Regístrate aquí</a></p>
+        </div>
+    </div>    
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <style>
+        body {
+            
+            background-color: #373a38;
+            margin: 3px 0 0 3px;
+            font-family: Arial, sans-serif;
+            
+            
+        }
+
+        header {
+            background-color: #51ff00;
+            background-image: url('https://i.pinimg.com/736x/4e/7b/e2/4e7be291fa15c76926e9644f3b8d970f.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 20px 0;
+            border-radius : 10px 0 0 0;
+            text-align: center;
+            color: white;
+        }
+
+        header h1 {
+            
+            margin: 30px 0 10px 0;
+        }
+
+        main {
+
+            background-size: cover;
+            color:  rgb(0, 0, 0);
+            padding: 0 20px 750px 20px;
+            text-align: center;
+            background: linear-gradient(#0e80bc, white);
+            
+        }
+        
+        .fotos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px; 
+            max-width: 900px; 
+            margin: 0 auto 40px; 
+        }
+        
+        .foto {
+            width: 45%; 
+            max-width: 350px; 
+            overflow: hidden;
+            border-radius: 30px; 
+            height: 250px; 
+        }
+
+        .foto img {
+            width: 100%;
+            height: 100%; 
+            display: flex; 
+            object-fit: cover; 
+        }
+
+        h2 {
+            margin: 0 20px 0 0;
+            padding: 30px 0 30px 0;
+            font-size: 20px;
+            
+        }
+
+        .btn { 
+
+            text-decoration: none;
+            color: white;
+            font-size: 40px;
+        }
+        
+        footer {
+            background-color: #203e49;
+            color: white;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        
+        <h1>Landing Page de Deportes</h1>
+        
+            <p>¡Encuentra todo lo que necesita para mantenerte activo!</p>
+
+    </header>
+
+    <main>
+            <h2>Galería de fotos</h2>
+
+            <section class="fotos">
+            <div class="foto">
+                <img src="https://i.pinimg.com/736x/08/24/fa/0824faa9e48993383ca327a071b1fcfa.jpg" alt="1">
+            </div>
+            <div class="foto">
+                <img src="https://i.pinimg.com/1200x/aa/e0/c5/aae0c57d8baf78c9be707d9730370fa8.jpg" alt="2">
+            </div>
+            <div class="foto">
+                <img src="https://i.pinimg.com/736x/5a/8f/2a/5a8f2ac4e271ea09687536ad0d263317.jpg" alt="3">
+            </div>
+            <div class="foto">
+                <img src="https://i.pinimg.com/736x/9b/49/5b/9b495b8f4286dd5ec3f7667834885808.jpg" alt="4">
+            </div>
+            </section>
+
+            <a href="{ % url 'vistaPrincipal' % }" class="btn">Regresar</a>
+
+    </main>
+    
+     <footer>
+        <p>© 2023 Landing Page Deportes</p>
+    </footer>
+
+</body>
+</html>
