@@ -33,7 +33,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-CRSF_TRUSTED_ORIGINS = [os.getenv ("DOMINIO")] 
+CSRF_TRUSTED_ORIGINS = [os.getenv("DOMINIO")]
 
 
 # Application definition
